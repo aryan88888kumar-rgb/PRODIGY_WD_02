@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stopwatch</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    text-align:center;
+    background:#1e293b;
+    padding:30px;
+    border-radius:10px;
+}
+
+#display{
+    font-size:40px;
+    margin-bottom:20px;
+}
+
+button{
+    padding:10px 20px;
+    margin:5px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.start{
+    background:green;
+    color:white;
+}
+
+.pause{
+    background:orange;
+    color:white;
+}
+
+.reset{
+    background:red;
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Stopwatch</h1>
+    <div id="display">00:00:00</div>
+
+    <button class="start" onclick="startTimer()">Start</button>
+    <button class="pause" onclick="pauseTimer()">Pause</button>
+    <button class="reset" onclick="resetTimer()">Reset</button>
+</div>
+
+<script>
+let seconds = 0;
+let timer = null;
+
+function updateDisplay(){
+    let hrs = Math.floor(seconds / 3600);
+    let mins = Math.floor((seconds % 3600) / 60);
+    let secs = seconds % 60;
+
+    document.getElementById("display").innerText =
+    String(hrs).padStart(2,'0') + ":" +
+    String(mins).padStart(2,'0') + ":" +
+    String(secs).padStart(2,'0');
+}
+
+function startTimer(){
+    if(timer !== null) return;
+
+    timer = setInterval(() => {
+        seconds++;
+        updateDisplay();
+    },1000);
+}
+
+function pauseTimer(){
+    clearInterval(timer);
+    timer = null;
+}
+
+function resetTimer(){
+    clearInterval(timer);
+    timer = null;
+    seconds = 0;
+    updateDisplay();
+}
+</script>
+
+</body>
+</html>
